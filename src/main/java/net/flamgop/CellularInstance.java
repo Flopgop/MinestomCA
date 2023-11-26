@@ -33,26 +33,14 @@ public class CellularInstance extends InstanceContainer {
     public void tick(long time) {
         if (tickCA)
             this.getChunks().forEach(c -> {
-                AtomicInteger sectionY = new AtomicInteger();
                 if (c.isLoaded())
                     c.getSections().forEach(s -> {
-                        sectionY.getAndIncrement();
                         if (s.blockPalette().count() <= 0) return;
-
 
                         Palette blockPalette = s.blockPalette();
                         final int dimension = blockPalette.dimension();
                         int[] oldPaletteValues = new int[(dimension+2)*(dimension+2)*(dimension+2)];
                         int[] newPaletteValues = new int[(dimension+2)*(dimension+2)*(dimension+2)];
-
-                        for (int x = 0; x < dimension+2; x++) {
-                            for (int y = 0; y < dimension+2; y++) {
-                                for (int z = 0; z < dimension+2; z++) {
-                                    if (x > 1 || x < dimension+1 || y > 1 || y < dimension+1 || z > 1 || z < dimension+1) continue;
-
-                                }
-                            }
-                        }
 
                         blockPalette.getAll((x, y, z, value) -> oldPaletteValues[z * dimension * dimension + y * dimension + x+1] = value);
 
